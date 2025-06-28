@@ -1,0 +1,135 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "bedrooms": {
+      "type": "integer"
+    },
+    "bathrooms": {
+      "type": "integer"
+    },
+    "size": {
+      "type": "integer"
+    },
+    "rooms": {
+      "type": "integer"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "propertyType": {
+      "type": "enumeration",
+      "enum": [
+        "VILLA",
+        "APARTMENT"
+      ]
+    },
+    "features": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::feature.feature",
+      "mappedBy": "products"
+    },
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "products"
+    },
+    "amenities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::amenity.amenity",
+      "inversedBy": "products"
+    },
+    "infrastructures": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::infrastructure.infrastructure",
+      "inversedBy": "products"
+    },
+    "kitchens": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::kitchen.kitchen",
+      "inversedBy": "products"
+    },
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location.location",
+      "inversedBy": "product"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "products"
+    },
+    "district": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::district.district",
+      "inversedBy": "product"
+    },
+    "metro_station": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::metro-station.metro-station",
+      "inversedBy": "product"
+    },
+    "address": {
+      "type": "text"
+    },
+    "is_booked": {
+      "type": "boolean",
+      "default": false
+    },
+    "expiry_date": {
+      "type": "datetime"
+    },
+    "sequence_order": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "agent_subscription": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::agent-subscription.agent-subscription",
+      "inversedBy": "selected_product"
+    },
+    "position": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::position.position",
+      "inversedBy": "product"
+    },
+    "booking_forms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::booking-form.booking-form",
+      "mappedBy": "product"
+    }
+  }
+}

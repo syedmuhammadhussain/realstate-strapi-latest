@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "kitchens",
+  "info": {
+    "singularName": "kitchen",
+    "pluralName": "kitchens",
+    "displayName": "Kitchen"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "kitchens"
+    }
+  }
+}

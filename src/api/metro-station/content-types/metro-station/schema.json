@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "metro_stations",
+  "info": {
+    "singularName": "metro-station",
+    "pluralName": "metro-stations",
+    "displayName": "Metro Station"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "metro_stations"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product",
+      "mappedBy": "metro_station"
+    }
+  }
+}

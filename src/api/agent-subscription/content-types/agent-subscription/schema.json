@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "agent_subscriptions",
+  "info": {
+    "singularName": "agent-subscription",
+    "pluralName": "agent-subscriptions",
+    "displayName": "AgentSubscription"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "agent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "agent_subscriptions"
+    },
+    "start_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "end_date": {
+      "type": "datetime",
+      "required": true
+    },
+    "subscription_status": {
+      "type": "enumeration",
+      "enum": [
+        "AVAILABLE",
+        "PENDING",
+        "BOOKED",
+        "REJECTED"
+      ]
+    },
+    "auto_renew": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "selected_position": {
+      "type": "integer"
+    },
+    "payment_id": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "selected_product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product",
+      "mappedBy": "agent_subscription"
+    }
+  }
+}

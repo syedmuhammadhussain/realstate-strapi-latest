@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "infrastructures",
+  "info": {
+    "singularName": "infrastructure",
+    "pluralName": "infrastructures",
+    "displayName": "Infrastructure"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "infrastructures"
+    }
+  }
+}

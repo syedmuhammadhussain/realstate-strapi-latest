@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "booking_forms",
+  "info": {
+    "singularName": "booking-form",
+    "pluralName": "booking-forms",
+    "displayName": "BookingForm"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "regex": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+    },
+    "address": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "booking_status": {
+      "type": "enumeration",
+      "enum": [
+        "AVAILABLE",
+        "PENDING",
+        "BOOKED",
+        "REJECTED"
+      ]
+    },
+    "booking_date": {
+      "type": "datetime"
+    },
+    "booking_expiry": {
+      "type": "datetime"
+    },
+    "guest": {
+      "type": "integer",
+      "required": true
+    },
+    "arrival": {
+      "type": "datetime",
+      "required": true
+    },
+    "departure": {
+      "type": "datetime",
+      "required": true
+    },
+    "notification": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::notification.notification",
+      "mappedBy": "booking_form"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "booking_forms"
+    }
+  }
+}

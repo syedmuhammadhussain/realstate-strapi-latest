@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notifications",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notifications",
+    "displayName": "Notification"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    },
+    "notification_status": {
+      "type": "enumeration",
+      "enum": [
+        "Active",
+        "Read"
+      ]
+    },
+    "recipient": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "notifications"
+    },
+    "booking_form": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::booking-form.booking-form",
+      "inversedBy": "notification"
+    }
+  }
+}
