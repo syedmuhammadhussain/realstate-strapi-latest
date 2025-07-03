@@ -109,6 +109,7 @@ export default {
   },
 
   async afterCreate(event: LifecycleEvent) {
+    
     const { result } = event
     const bookingId = result.id
 
@@ -135,24 +136,24 @@ export default {
     // EMAILS (PENDING)
     try {
       // to client
-      await strapi
-        .plugin('email')
-        .service('email')
-        .send({
-          to: clientEmail,
-          subject: 'Booking Request Received',
-          html: `<p>Your request for "<strong>${pName}</strong>" is received. We’ll update you soon.</p>`,
-        })
+      // await strapi
+      //   .plugin('email')
+      //   .service('email')
+      //   .send({
+      //     to: clientEmail,
+      //     subject: 'Booking Request Received',
+      //     html: `<p>Your request for "<strong>${pName}</strong>" is received. We’ll update you soon.</p>`,
+      //   })
 
-      // to owner
-      await strapi
-        .plugin('email')
-        .service('email')
-        .send({
-          to: ownerEmail,
-          subject: 'New Booking Request',
-          html: `<p>A new booking request arrived for "<strong>${pName}</strong>". Please review.</p>`,
-        })
+      // // to owner
+      // await strapi
+      //   .plugin('email')
+      //   .service('email')
+      //   .send({
+      //     to: ownerEmail,
+      //     subject: 'New Booking Request',
+      //     html: `<p>A new booking request arrived for "<strong>${pName}</strong>". Please review.</p>`,
+      //   })
 
       strapi.log.info(`📧 Booking emails sent to client & owner`)
     } catch (e) {
