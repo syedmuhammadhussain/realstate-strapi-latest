@@ -93,6 +93,13 @@
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "owner"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

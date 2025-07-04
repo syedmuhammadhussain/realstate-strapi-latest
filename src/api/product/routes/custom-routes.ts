@@ -5,7 +5,7 @@ export default {
       path: '/products/upload-images',
       handler: 'product.uploadImages',
       config: {
-        policies: ['is-authenticated'],
+        policies: ['global::is-authenticated'],
         middlewares: [],
         auth: {
           mode: 'required',
