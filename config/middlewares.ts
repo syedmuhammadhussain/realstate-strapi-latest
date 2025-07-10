@@ -5,7 +5,10 @@ export default [
   {
     name: "strapi::cors",
     config: {
-      origin: ["*"],
+      origin: [
+        "http://localhost:3000",
+        "https://real-state-app-alpha.vercel.app",
+      ],
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
     },
   },
