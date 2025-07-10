@@ -7,7 +7,7 @@ export default [
     config: {
       origin: [
         "http://localhost:3000",
-        "https://real-state-app-nine-mu.vercel.app",
+        "https://real-state-app-alpha.vercel.app/",
       ],
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
     },
