@@ -488,6 +488,9 @@ export interface ApiAgentSubscriptionAgentSubscription
     subscription_status: Schema.Attribute.Enumeration<
       ['AVAILABLE', 'PENDING', 'BOOKED', 'REJECTED']
     >;
+    subscription_type: Schema.Attribute.Enumeration<
+      ['Advertisement', 'Position']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -56,6 +56,13 @@
       "relation": "oneToOne",
       "target": "api::product.product",
       "mappedBy": "agent_subscription"
+    },
+    "subscription_type": {
+      "type": "enumeration",
+      "enum": [
+        "Advertisement",
+        "Position"
+      ]
     }
   }
 }
