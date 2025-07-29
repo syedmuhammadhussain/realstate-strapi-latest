@@ -8,6 +8,7 @@ export default [
       origin: [
         "http://localhost:3000",
         "https://real-state-app-alpha.vercel.app",
+        "https://admin.kvkey.ru"
       ],
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
     },
