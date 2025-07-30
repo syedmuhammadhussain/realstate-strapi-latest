@@ -4,7 +4,7 @@ export default ({ env }) => ({
     'users-permissions': {
         config: {
             register: {
-                allowedFields: ['phone', 'roleName', 'image'],
+                allowedFields: ['phone', 'image'],
             },
             jwt: { expiresIn: '30d' },
         },

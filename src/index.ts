@@ -1,7 +1,7 @@
-import type { Core } from '@strapi/strapi';
-import utils from '@strapi/utils'
+import type { Core } from "@strapi/strapi";
+import utils from "@strapi/utils";
 
-const { ApplicationError } = utils.errors
+const { ApplicationError } = utils.errors;
 
 export default {
   /**
@@ -10,7 +10,7 @@ export default {
    *
    * This gives you an opportunity to extend code.
    */
-  register(/* { strapi }: { strapi: Core.Strapi } */) { },
+  register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
   /**
    * An asynchronous bootstrap function that runs before
@@ -21,26 +21,30 @@ export default {
    */
   bootstrap({ strapi }: { strapi: Core.Strapi }) {
     strapi.db.lifecycles.subscribe({
-      models: ['plugin::users-permissions.user'],
+      models: ["plugin::users-permissions.user"],
 
       /**
        * Lifecycle hook triggered before a new user is created.
        * @param {any} event - The event object containing the created user's details.
        */
       async beforeCreate(event: any) {
-        const { data } = event.params
+        const { data } = event.params;
 
         const role = await strapi.db
-          .query('plugin::users-permissions.role')
-          .findOne({ where: { type: data.roleName } })
+          .query("plugin::users-permissions.role")
+          .findOne({
+            where: {
+              // type: data.roleName
+              type: "agency",
+            },
+          });
 
         if (!role) {
-          throw new ApplicationError('Impossible to find the default role')
+          throw new ApplicationError("Impossible to find the default role");
         }
 
-        data.role = role.id
+        data.role = role.id;
       },
-
-    })
+    });
   },
 };
