@@ -24,7 +24,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::product.product",
-      "mappedBy": "metro_station"
+      "inversedBy": "metro_station"
     }
   }
 }

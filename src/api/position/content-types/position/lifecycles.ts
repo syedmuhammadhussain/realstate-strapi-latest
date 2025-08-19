@@ -25,7 +25,7 @@ export default {
   },
 
   async beforeUpdate(event) {
-    debugger;
+    // debugger;
     const {
       params: { data, where },
     } = event;

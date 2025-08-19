@@ -91,12 +91,6 @@
       "target": "api::district.district",
       "inversedBy": "product"
     },
-    "metro_station": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::metro-station.metro-station",
-      "inversedBy": "product"
-    },
     "address": {
       "type": "text"
     },
@@ -129,6 +123,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::booking-form.booking-form",
+      "mappedBy": "product"
+    },
+    "metro_station": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::metro-station.metro-station",
       "mappedBy": "product"
     }
   }
