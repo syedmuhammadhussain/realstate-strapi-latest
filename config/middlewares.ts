@@ -1,7 +1,39 @@
 export default [
   "strapi::logger",
   "strapi::errors",
-  "strapi::security",
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'default-src': ["'self'"],
+          'img-src': [
+            "'self'",
+            'data:',
+            'blob:',
+            'https://res.cloudinary.com',
+            'https://res-1.cloudinary.com',
+          ],
+          'connect-src': [
+            "'self'",
+            'https://api.cloudinary.com',
+            'https://res.cloudinary.com',
+          ],
+          'frame-src': [
+            "'self'",
+            'https://widget.cloudinary.com',
+            'https://res.cloudinary.com',
+          ],
+          'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            'https://widget.cloudinary.com',
+          ],
+        },
+      },
+    },
+  },
   {
     name: "strapi::cors",
     config: {
