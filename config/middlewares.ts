@@ -40,6 +40,7 @@ export default [
       origin: [
         "http://localhost:3000",
         "https://real-state-app-alpha.vercel.app",
+        "https://7aaf61d00cd8.ngrok-free.app",
         "https://kvkey.ru",
         "https://www.kvkey.ru"
       ],

@@ -879,6 +879,59 @@ export interface ApiNotificationNotification
   };
 }
 
+export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
+  collectionName: 'payments';
+  info: {
+    displayName: 'Payment';
+    pluralName: 'payments';
+    singularName: 'payment';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment.payment'
+    > &
+      Schema.Attribute.Private;
+    orderId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    payment_meta: Schema.Attribute.JSON;
+    payment_status: Schema.Attribute.Enumeration<
+      [
+        'CONFIRMED',
+        'PAID',
+        'AUTHORIZED',
+        'DECLINED',
+        'CANCELLED',
+        'FAILED',
+        'PENDING',
+        'NEW',
+      ]
+    >;
+    paymentId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.DefaultTo<'null'>;
+    position: Schema.Attribute.Relation<'oneToOne', 'api::position.position'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiPositionPosition extends Struct.CollectionTypeSchema {
   collectionName: 'positions';
   info: {
@@ -904,8 +957,9 @@ export interface ApiPositionPosition extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     order: Schema.Attribute.Integer;
+    payment: Schema.Attribute.Relation<'oneToOne', 'api::payment.payment'>;
     price: Schema.Attribute.Integer;
-    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
@@ -967,7 +1021,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    position: Schema.Attribute.Relation<'oneToOne', 'api::position.position'>;
+    position: Schema.Attribute.Relation<'manyToOne', 'api::position.position'>;
     price: Schema.Attribute.Integer;
     propertyType: Schema.Attribute.Enumeration<['VILLA', 'APARTMENT']>;
     publishedAt: Schema.Attribute.DateTime;
@@ -1470,6 +1524,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     phone: Schema.Attribute.String & Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     provider: Schema.Attribute.String;
@@ -1516,6 +1571,7 @@ declare module '@strapi/strapi' {
       'api::location.location': ApiLocationLocation;
       'api::metro-station.metro-station': ApiMetroStationMetroStation;
       'api::notification.notification': ApiNotificationNotification;
+      'api::payment.payment': ApiPaymentPayment;
       'api::position.position': ApiPositionPosition;
       'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;

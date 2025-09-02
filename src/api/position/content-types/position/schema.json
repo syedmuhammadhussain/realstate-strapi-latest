@@ -40,10 +40,16 @@
       "target": "api::city.city",
       "inversedBy": "positions"
     },
-    "product": {
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "position"
+    },
+    "payment": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::product.product",
+      "target": "api::payment.payment",
       "mappedBy": "position"
     }
   }

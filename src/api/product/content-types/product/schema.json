@@ -115,9 +115,9 @@
     },
     "position": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::position.position",
-      "inversedBy": "product"
+      "inversedBy": "products"
     },
     "booking_forms": {
       "type": "relation",

@@ -8,6 +8,9 @@ export default factories.createCoreController(
   "api::agent-subscription.agent-subscription",
   ({ strapi }) => ({
     async purchase(ctx) {
+      if (!ctx.request.body.data) {
+        return ctx.badRequest("Data is required.");
+      }
       const {
         email,
         agent,
@@ -18,7 +21,7 @@ export default factories.createCoreController(
         auto_renew,
         productId,
         positionId,
-      } = ctx.request.body;
+      } = ctx.request.body.data;
 
       // Validate that all required fields are provided.
       if (
@@ -51,9 +54,13 @@ export default factories.createCoreController(
     },
 
     async advertise(ctx) {
+      // debugger;
+      if (!ctx.request.body.data) {
+        return ctx.badRequest("Data is required.");
+      }
       const agentId = ctx.state.user.id;
       const { paymentId, productId, amount, agent, positionId } =
-        ctx.request.body;
+        ctx.request.body.data;
 
       if (agentId !== agent)
         return ctx.badRequest("Agent is not allowed this porduct");

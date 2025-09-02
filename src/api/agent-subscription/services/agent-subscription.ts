@@ -194,7 +194,7 @@ export default factories.createCoreService(
             auto_renew,
             subscription_type: "Position",
             selected_position: position,
-            start_date: computedEndDate,
+            start_date: computedStartDate,
             end_date: computedEndDate,
             subscription_status: PositionStatus.PENDING,
             payment_id: paymentId,
@@ -205,11 +205,11 @@ export default factories.createCoreService(
       // 5. Update the Position record to mark it as booked.
       await strapi.db.query("api::position.position").update({
         where: { id: positionId },
-        data: { is_booked: true, product: productId },
+        data: { is_booked: true, products: [productId] },
       });
 
       // Optionally, you could also send a notification to the agent.
-      await sendAdminApprovalNotification(email, productId);
+      // await sendAdminApprovalNotification(email, productId);
 
       return newSubscription;
     },
@@ -230,7 +230,7 @@ export default factories.createCoreService(
         .query("api::agent-subscription.agent-subscription")
         .findOne({
           where: { id: subscriptionId },
-          populate: ["selected_product"], // get the related product details
+          populate: ["selected_product"],
         });
 
       if (!subscription) {
@@ -297,6 +297,7 @@ export default factories.createCoreService(
      * 4. Create the subscription record (24h lifetime)
      */
     async advertise({ paymentId, productId, amount, agent, positionId }) {
+      // debugger;
       const now = new Date();
       const expiresAt = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
@@ -384,7 +385,7 @@ export default factories.createCoreService(
               agent,
               payment_id: paymentId,
               selected_product: productId,
-              subscription_type: "advertisement",
+              subscription_type: "Advertisement",
               label: "Advertisement",
               subscription_status: "BOOKED",
               auto_renew: false,
@@ -393,6 +394,12 @@ export default factories.createCoreService(
               end_date: expiresAt.toISOString(),
             },
           });
+
+        // 7) Update the Position record to mark it as booked.
+        await strapi.db.query("api::position.position").update({
+          where: { id: positionId },
+          data: { is_booked: true, products: [productId] },
+        });
 
         // No need to manually commit/rollback; Strapi handles it
         return subscription;

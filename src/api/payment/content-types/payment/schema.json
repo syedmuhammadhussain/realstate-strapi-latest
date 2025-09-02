@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "singularName": "payment",
+    "pluralName": "payments",
+    "displayName": "Payment"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "orderId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "paymentId": {
+      "type": "string",
+      "default": "null",
+      "required": true,
+      "unique": true
+    },
+    "payment_status": {
+      "type": "enumeration",
+      "enum": [
+        "CONFIRMED",
+        "PAID",
+        "AUTHORIZED",
+        "DECLINED",
+        "CANCELLED",
+        "FAILED",
+        "PENDING",
+        "NEW"
+      ]
+    },
+    "amount": {
+      "type": "decimal"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "payments"
+    },
+    "payment_meta": {
+      "type": "json"
+    },
+    "position": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::position.position",
+      "inversedBy": "payment"
+    }
+  }
+}
